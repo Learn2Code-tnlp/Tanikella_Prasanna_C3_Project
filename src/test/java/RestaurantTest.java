@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,4 +73,28 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //<<<<<<<<<<<<<<<<<<<<ORDER>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void adding_items_to_order_should_display_total_order_value() {
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Hot and sour soup",100);
+        restaurant.addToMenu("baby corn manchuria", 120);
+        restaurant.addToMenu("Tomato Bath",140);
+        restaurant.addToMenu("Shahi Paneer", 350);
+        restaurant.addToMenu("Roti",30);
+        restaurant.addToMenu("Vegetable Fried Rice", 250);
+        List<String> order = new ArrayList<>();
+        order.add("Sweet corn soup");
+        order.add("Shahi Paneer");
+        // considering quantity might be greater than 1 also, adding duplicates intentionally to test this scenario
+        order.add("Roti");
+        order.add("Roti");
+        order.add("Roti");
+        double actualOrderValue = restaurant.calculateOrderValue(order);
+        assertEquals((559),actualOrderValue);
+    }
+    //<<<<<<<<<<<<<<<<<<<<ORDER>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
