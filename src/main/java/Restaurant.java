@@ -68,4 +68,15 @@ public class Restaurant {
         return name;
     }
 
+    // When items are added to the order, this method is invoked which takes the list of items added as a input parameter and
+    // returns the total order price as output
+    public int calculateOrderValue(List<String> order) {
+        int totalOrderPrice = 0;
+        for(String orderedItem : order){
+            totalOrderPrice+= menu.stream().filter(menuItem -> orderedItem.equals(menuItem.getName()))
+                    .map(Item::getPrice).mapToInt(Integer::intValue).sum();
+        }
+        return totalOrderPrice;
+    }
+
 }
